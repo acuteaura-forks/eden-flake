@@ -165,16 +165,22 @@
       cmake
     ];
   });
+  version = "0.1.1";
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "eden";
-    version = "0.0.4";
+    inherit version;
     src = builtins.fetchTree {
       type = "git";
       url = "https://git.eden-emu.dev/eden-emu/eden.git";
-      rev = "f0fe283038c06f1911abc8ac6de2ccdd66cfb270";
+      ref = "v${version}";
+      rev = "385b7cad77c3546082087c3993a3944c2050dd15";
       submodules = true;
     };
+
+    patches = [
+      ./discord-rpc-compat.patch
+    ];
 
     nativeBuildInputs = [
       cmake
